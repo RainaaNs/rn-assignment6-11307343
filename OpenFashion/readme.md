@@ -54,12 +54,13 @@ The total price of all items in the cart is also calculated and displayed right 
 
 ***Images and Icons:*** Images and icons used in can be found in the Assets folder in the SRC folder.
 
-## Screenshots of the App
+## Screenshots of the Application
 
-![alt text](photo_1_2024-07-03_19-28-52.jpg) 
-![alt text](photo_2_2024-07-03_19-28-52.jpg)
-![alt text](photo_7_2024-07-03_19-28-52.jpg) 
-![alt text](photo_6_2024-07-03_19-28-52.jpg)
-![alt text](photo_3_2024-07-03_19-28-52-1.jpg) 
-![alt text](photo_5_2024-07-03_19-28-52.jpg) 
-![alt text](photo_4_2024-07-03_19-28-52.jpg)
+![alt text](src/assets/photo_1_2024-07-03_19-28-52.jpg) 
+![alt text](src/assets/photo_2_2024-07-03_19-28-52.jpg)
+![alt text](src/assets/photo_7_2024-07-03_19-28-52.jpg) 
+![alt text](src/assets/photo_6_2024-07-03_19-28-52.jpg)
+![alt text](src/assets/photo_3_2024-07-03_19-28-52-1.jpg) 
+![alt text](src/assets/photo_5_2024-07-03_19-28-52.jpg) 
+![alt text](src/assets/photo_4_2024-07-03_19-28-52.jpg)
+
