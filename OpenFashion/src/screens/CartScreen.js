@@ -1,9 +1,13 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import CartList from '../components/CartList';
+import { useCart } from '../context/CartProvider';
+
 
 
 const CartScreen = () => {
+  const { cartItems } = useCart();
+
   return (
     <View style={{backgroundColor:'white', flex:1}}>
       <View style={styles.checkout} >
@@ -18,7 +22,11 @@ const CartScreen = () => {
       </View>
 
       <View>
-        <CartList/>
+        {cartItems.length > 0 ? (
+          <CartList />
+        ) : (
+          <Text style={styles.emptyCartText}>Your cart is empty</Text>
+        )}
       </View>
 
       
@@ -43,10 +51,14 @@ const styles = StyleSheet.create({
   checkoutline:{
    height:13,
    width:133
+  },
+  emptyCartText: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 50,
+    fontFamily: 'tenorsans',
   }
-  
-  
-})
+});
 
 export default CartScreen;
 

@@ -5,6 +5,8 @@ import AppNavigator from './src/navigation/AppNavigator';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 
+import { CartProvider } from './src/context/CartProvider';
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     'tenorsans': require('./src/assets/fonts/tenorsans.ttf'),
@@ -16,9 +18,11 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-       <AppNavigator/>
-    </NavigationContainer>
+    <CartProvider>
+      <NavigationContainer>
+        <AppNavigator/>
+      </NavigationContainer>
+    </CartProvider>
   );
 }
 

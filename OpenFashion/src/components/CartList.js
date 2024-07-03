@@ -1,28 +1,28 @@
 import React from "react";
-import { View, Text, Image, StyleSheet} from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity} from "react-native";
+import { useCart } from "../context/CartProvider";
 
 const cartproducts = [
     {
-        id:1,
+        id:99,
         image: require('../assets/dress1.png'), 
-        overlayImage: require('../assets/remove.png'),
+        removeImage: require('../assets/remove.png'),
         title1: 'OFFICE WEAR',
         title2: 'Office wear for your office',
         title3: '$120'
     },
     {
-        id:2,
+        id:100,
         image: require('../assets/dress4.png'), 
-        overlayImage: require('../assets/remove.png'),
+        removeImage: require('../assets/remove.png'),
         title1: 'LAMEREI',
         title2: 'Recycle Boucle Knit Cardigan Pink',
         title3: '$120'
     },
     {
-        id:3,
+        id:101,
         image: require('../assets/dress3.png'), 
-        overlayImage: require('../assets/remove.png'),
+        removeImage: require('../assets/remove.png'),
         title1: 'CHURCH WEAR',
         title2: 'Recycle Boucle Knit Cardigan Pink',
         title3: '$120'
@@ -32,12 +32,16 @@ const cartproducts = [
 
 
 const CartList = () => {
+    const { cartItems, removeFromCart } = useCart();
+
     const renderItem = ({item}) => (
         <View style={{flexDirection:'row'}}>
             <View>
                 <Image style={styles.cartImage} source={item.image}/>
             </View>
-            <Image style={styles.removeImage} source={item.overlayImage}/>
+            <TouchableOpacity style={styles.removeImage} onPress={() => removeFromCart(item.id)}>
+                <Image source={item.removeImage}/>
+            </TouchableOpacity>
             <View>
             <Text style={styles.textPosition}>
                <View>
@@ -59,39 +63,46 @@ const CartList = () => {
         </View>
     )
 
-    return(
-     
-        <FlatList
-        data = {cartproducts}
-        renderItem = {renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        ListFooterComponent={CheckoutFooter}
-        numColumns={1}
-        contentContainerStyle={styles.cartListContainer}
-    />
-    );
+    const totalPrice = cartItems.reduce((sum, item) => sum + parseFloat(item.title3.replace('$', '')), 0);
 
+
+    return(
+        <FlatList
+            data = {cartItems}
+            renderItem = {renderItem}
+            keyExtractor={(item) => item.id.toString()}
+            ListFooterComponent={() => <CheckoutFooter total={totalPrice} />}
+            numColumns={1}
+            contentContainerStyle={styles.cartListContainer}
+    />
+  );
 }
-const CheckoutFooter = () => (
-    <View style={{marginTop:120}}>
+
+const CheckoutFooter = ({total}) => {
+    const { clearCartItems } = useCart();
+  
+    return(
+    <View style={styles.footerContainer}>
         <View style={styles.estline}>
             <View><Text style={styles.este}>EST. TOTAL</Text></View>
-            <View><Text style={styles.estMoney}>$240</Text></View>
+            <View><Text style={styles.estMoney}>${total.toFixed(2)}</Text></View>
         </View>
+
         <View style={styles.blackfooter}></View>
         <View style={{ top:-40}}>
-            <View style={styles.checkoutview}>
+            <TouchableOpacity style={styles.checkoutview} onPress={() => { console.log('Checkout pressed'); clearCartItems();}}>
                 <View style={{marginHorizontal:10}}>
                     <Image style={styles.shoppingImage} source={require('../assets/shoppingBag.png')}/>
                 </View>
                 <View>
                     <Text style={styles.footcheckoutext}>CHECKOUT</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         </View>
     </View>
+    );
     
-)
+};
 
 const styles = StyleSheet.create({
     cartListContainer:{
@@ -166,7 +177,13 @@ const styles = StyleSheet.create({
         tintColor:'white', 
         width:26, 
         height:26, 
-        top:-3 }
+        top:-3 
+    },
+    footerContainer:{
+        marginTop:440,
+        marginBottom:-10
+
+    }
     
   
 
